@@ -147,7 +147,7 @@ function boardActive(open){
     }
 }
 function selecQes(option){
-    if (Math.random() > 0.1){
+    if (Math.random() > 0.01){
         if (option == "Truth"){
             random = Math.floor(Math.random() * QUESTION_TRUTH.length)
             return QUESTION_TRUTH[random]
