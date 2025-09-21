@@ -159,7 +159,7 @@ function selecQes(option){
     }
     else {
         let Cl = ["A","B","C","D","E","F"]
-        return `${Cl[Math.floor(Math.random() * Cl.length)]}${(Math.floor(Math.random() * QUESTION_TRUTH.length)).toString().padStart(3, "0")}$Lượt tiếp phải chọn S tier (nếu có)!!!---Miễn lượt chơi tiếp theo.`
+        return `${Cl[Math.floor(Math.random() * Cl.length)]}${(Math.floor(Math.random() * 31)).toString().padStart(3, "0")}$Lượt tiếp phải chọn S tier (nếu có)!!!---Miễn lượt chơi tiếp theo.`
     }
 }
 
