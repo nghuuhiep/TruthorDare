@@ -10,6 +10,13 @@ const demoTEl = document.getElementById("demoT")
 const demoDEl = document.getElementById("demoD")
 const capTEl = document.getElementById("capT")
 const capDEl = document.getElementById("capD")
+const harshnessEl = document.getElementById("harshness")
+const soundReset0 = new Audio("assets/inverso-indietro-nel-tempo-187282.mp3")
+const soundReset1 = new Audio("assets/money-counting-machine-sfx-406495.mp3")
+const soundReset2 = new Audio("assets/portal-phase-jump-6355.mp3")
+const soundReset3 = new Audio("assets/teleport-90137.mp3")
+const soundReset4 = new Audio("assets/time-reversed-strange-metal-sounds-80118.mp3")
+const soundTouch = new Audio("assets/clickmouse-266516.mp3")
 
 var touchCount = 0
 var newTouchCount = 0
@@ -27,6 +34,7 @@ var qesT = null
 var qesD = null
 var resetReady = false
 var timeReset = 10
+var harshness = 0
 
 
 function resetTimer() {
@@ -56,7 +64,7 @@ function logInHub(){
     setTimeout(() => {resetMember(), hubReady = true}, 3000); 
     logEl.style.opacity = "0"
     timeEl.style.opacity = "0"
-    document.body.style.backgroundColor = "rgb(84, 194, 246)"
+    document.body.style.backgroundColor = "rgb(146, 146, 146)"
     qesD = selecQes("Dare")
     qesT = selecQes("Truth")
     console.log(qesD,qesT)
@@ -147,23 +155,50 @@ function boardActive(open){
     }
 }
 function selecQes(option){
-    if (Math.random() > 0.01){
+    function PhanPhoi(x){
+        return 3*(x**2)*(1-x)*harshness + 3*x*((1-x)**2)*harshness + (1-x)**3
+    }
+    function testPhanPhoi(){
+        let F = 0
+        let E = 0
+        let D = 0
+        let C = 0
+        let B = 0
+        let A = 0
+        let S = 0
+        for (let i = 0; i < 100; i++){
+            switch (Math.floor(PhanPhoi(Math.random()) * 7)) {
+                case 0: F++; break
+                case 1: E++; break
+                case 2: D++; break
+                case 3: C++; break
+                case 4: B++; break
+                case 5: A++; break
+                case 6: S++; break
+            }
+        }
+        console.log(`S:${S}, A:${A}, B:${B}, C:${C}, D:${D}, E:${E}, F:${F}`)
+    }
+
+    if (Math.random() > (0.3*harshness)){
         if (option == "Truth"){
-            random = Math.floor(Math.random() * QUESTION_TRUTH.length)
+            random = Math.floor(PhanPhoi(Math.random()) * QUESTION_TRUTH.length)
+            // testPhanPhoi()
             return QUESTION_TRUTH[random]
         }
         if (option == "Dare"){
-            random = Math.floor(Math.random() * QUESTION_DARE.length)
+            random = Math.floor(PhanPhoi(Math.random()) * QUESTION_DARE.length)
             return QUESTION_DARE[random]
         }
     }
     else {
         let Cl = ["A","B","C","D","E","F"]
-        return `${Cl[Math.floor(Math.random() * Cl.length)]}${(Math.floor(Math.random() * 31)).toString().padStart(3, "0")}$Lượt tiếp phải chọn S tier (nếu có)!!!---Miễn lượt chơi tiếp theo.`
+        return `${Cl[Math.floor(Math.random() * Cl.length)]}${(Math.floor(Math.random() * (QUESTION_TRUTH.length)/7)).toString().padStart(3, "0")}$Lượt tiếp phải chọn S tier (nếu có)!!!---Miễn lượt chơi tiếp theo.`
     }
 }
 
 function hUb(){
+    harshnessEl.textContent = `Khắc nghiệt:${harshness}`
     boardActive(1)
     truthActive(0)
     dareActive(0)
@@ -187,6 +222,8 @@ function rs(){
 }
 function handle(e) {
     if (!hub){
+        soundTouch.currentTime = 0
+        soundTouch.play()
         currentTouch = Array.from(e.touches)
         newTouchCount = e.touches.length
         if (newTouchCount != touchCount) {
@@ -206,8 +243,22 @@ function handle(e) {
         showMember()
     }
 }
+function playSound(type){
+    switch (type){
+        case "end":{
+            switch (Math.floor(Math.random()*5)){
+                case 0: soundReset0.play();break;
+                case 1: soundReset1.play();break
+                case 2: soundReset2.play();break
+                case 3: soundReset3.play();break
+                case 4: soundReset4.play();break
+            }
+        }
+    }
+}
 function restart() {
     if (resetReady) {
+        playSound("end")
         truthActive(0)
         dareActive(0)
         touchCount = 0
@@ -231,7 +282,7 @@ function restart() {
         questionEl.textContent = ""
         qesCodeEl.textContent = ""
         titleEl.textContent = ""
-        document.body.style.backgroundColor = "rgb(189, 62, 62)"
+        document.body.style.backgroundColor = "rgb(45, 45, 45)"
         titleEl.style.opacity = "0"
         qesCodeEl.style.opacity = "0"
         questionEl.style.opacity = "0"
@@ -244,8 +295,20 @@ function restart() {
     resetReady = false
 }
 board.addEventListener("touchend", (e) => restart())
-dareEl.addEventListener("touchstart", (e) => {dO = "Dare"; hUb()})
-truthEl.addEventListener("touchstart", (e) => { dO = "Truth"; hUb()})
+dareEl.addEventListener("touchstart", (e) => {
+    dO = "Dare";
+    if (harshness >= 0.04) harshness = Math.round((harshness - 0.04) * 100) / 100;
+    else {
+        harshness += 0-harshness
+    }
+    hUb()})
+truthEl.addEventListener("touchstart", (e) => {
+    dO = "Truth";
+    if (harshness <= 0.95) harshness = Math.round((harshness + 0.05) * 100) / 100;
+    else {
+        harshness += 1-harshness
+    }
+    hUb()})
 window.addEventListener('touchstart', (e) => handle(e))
 window.addEventListener('touchend', (e) => handle(e))
 window.addEventListener('touchmove', (e) => handle(e))

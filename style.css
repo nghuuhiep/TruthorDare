@@ -7,7 +7,7 @@ body{
     height: 100vh;
     width: 100vw;
     margin: 0;
-    background-color:rgb(189, 62, 62) ;
+    background-color:rgb(45, 45, 45) ;
     overflow: hidden;
     display: flex;
     position: relative;
@@ -26,19 +26,26 @@ body{
 }
 #timer{
     position: absolute;
-    height: max-content;
-    width: max-content;
+    height: 10%;
+    text-align: center;
     translate: -50% -50%;
     left: 50%;
     top: 50%;
     font-size: 50px;
     font-family: 'Courier New', Courier, monospace;
     transition-delay: 2s;
+    color: aliceblue;
+    border: 2px solid aliceblue;
+    border-radius: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .mem{
     height: 80px;
     aspect-ratio: 1;
-    background-color: rgba(0, 0, 0, 0.477);
+    background-color: rgba(0, 0, 0, 0.477); 
     border: 2px dotted black;
     border-radius: 100%;
     translate: -50% -50%;
@@ -46,8 +53,7 @@ body{
 .choosen{
     height: 80px;
     aspect-ratio: 1;
-    background-color: rgb(84, 194, 246);
-    border: 2px solid rgb(194, 236, 42);
+    border: 2px solid rgb(236, 42, 123);
     border-radius: 100%;
     translate: -50% -50%;
 }
@@ -72,12 +78,12 @@ body{
     border-radius: 5px;
 }
 #truth {
-    background-color: rgb(255, 226, 62);
+    background-color: rgb(225, 225, 225);
     border: 5px solid black;
     display: flex;
 }
 #dare {
-    background-color: rgb(255, 177, 33);
+    background-color: rgb(177, 177, 177);
     border: 5px solid black;
     display: flex;
 }
@@ -91,7 +97,7 @@ body{
     border-radius: 5px;
     background-color: beige;
 }
-#question, #qesCode, #title, #restart, #demoT, #demoD, #capT, #capD {
+#question, #qesCode, #title, #restart, #demoT, #demoD, #capT, #capD, #harshness, #version {
     position: absolute;
     translate: -50% -50%;
 }
@@ -166,4 +172,25 @@ body{
     width: max-content;
     left: 50%;
     top: 35%;
+}
+#harshness{
+    height: max-content;
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    left: 16%;
+    top: 2%;
+    color: aliceblue;
+}
+#version{
+    height: max-content;
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    left: 94%;
+    top: 2%;
 }

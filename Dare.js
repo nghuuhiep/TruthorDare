@@ -122,6 +122,7 @@ var QUESTION_DARE = [
 "C028$Lấy một chiếc đệm và 'ôm' nó như người yêu của bạn.",
 "C029$Nói chuyện bằng 'giọng' trẻ con trong 1 phút.",
 "C030$Để người ngồi bên phải bạn 'vẽ' một hình lên trán bạn.",
+"C031$Đọc to tin nhắn cuối cùng bạn gửi cho bạn thân hoặc người yêu.",
 
 "B001$Cởi một món đồ nào đó trên người.",
 "B002$Gọi điện cho một người lạ và nói 'Tôi yêu bạn!'.",
