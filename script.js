@@ -46,7 +46,7 @@ function resetTimer() {
         timeEl.textContent = `${timeCount}`
         if (timeCount <= 0) {
             clearInterval(timer)
-            timeEl.textContent = "-:-"
+            timeEl.textContent = "0"
             chooseOne()
         }
     }
@@ -67,9 +67,12 @@ function logInHub(){
     document.body.style.backgroundColor = "rgb(146, 146, 146)"
     qesD = selecQes("Dare")
     qesT = selecQes("Truth")
-    console.log(qesD,qesT)
-    demoDEl.textContent = `${qesD.split("$")[0].replace(/^./, "_")}`
-    demoTEl.textContent = `${qesT.split("$")[0].replace(/^./, "_")}`
+    console.log("D:",qesD)
+    console.log("T:",qesT)
+    // demoDEl.textContent = `${qesD.split("$")[0].replace(/^./, "_")}`
+    // demoTEl.textContent = `${qesT.split("$")[0].replace(/^./, "_")}`
+    demoDEl.textContent = `???`
+    demoTEl.textContent = `???`
     truthActive(1)
     dareActive(1)
 
@@ -156,7 +159,8 @@ function boardActive(open){
 }
 function selecQes(option){
     function PhanPhoi(x){
-        return 3*(x**2)*(1-x)*harshness + 3*x*((1-x)**2)*harshness + (1-x)**3
+        // return 3*(x**2)*(1-x)*harshness + 3*x*((1-x)**2)*harshness + (1-x)**3
+        return -0.25*x+(0.25+harshness*0.75)
     }
     function testPhanPhoi(){
         let F = 0
@@ -180,10 +184,10 @@ function selecQes(option){
         console.log(`S:${S}, A:${A}, B:${B}, C:${C}, D:${D}, E:${E}, F:${F}`)
     }
 
-    if (Math.random() > (0.3*harshness)){
+    if (Math.random() > (0.20*harshness)){
         if (option == "Truth"){
             random = Math.floor(PhanPhoi(Math.random()) * QUESTION_TRUTH.length)
-            // testPhanPhoi()
+            testPhanPhoi()
             return QUESTION_TRUTH[random]
         }
         if (option == "Dare"){
@@ -193,7 +197,7 @@ function selecQes(option){
     }
     else {
         let Cl = ["A","B","C","D","E","F"]
-        return `${Cl[Math.floor(Math.random() * Cl.length)]}${(Math.floor(Math.random() * (QUESTION_TRUTH.length)/7)).toString().padStart(3, "0")}$Lượt tiếp phải chọn S tier (nếu có)!!!---Miễn lượt chơi tiếp theo.`
+        return `${Cl[Math.floor(Math.random() * Cl.length)]}${(Math.floor(Math.random() * (QUESTION_TRUTH.length)/7)).toString().padStart(3, "0")}$Lượt tiếp phải chọn S tier - _X.X (nếu có)!!!---Miễn lượt chơi người bị chọn tiếp theo.`
     }
 }
 
@@ -212,7 +216,7 @@ function hUb(){
     qesCodeEl.style.opacity = "1"
     questionEl.textContent = `${qes[1]}`
     questionEl.style.opacity = "1"
-    setTimeout(rs,8000)
+    setTimeout(rs,5000)
 
 
 
@@ -236,7 +240,7 @@ function handle(e) {
             else {
                 if (timer) clearInterval(timer)
                 timer = null
-                timeEl.textContent = "-:-"
+                timeEl.textContent = "0"
                 choosen = null
             }
         }
@@ -297,17 +301,13 @@ function restart() {
 board.addEventListener("touchend", (e) => restart())
 dareEl.addEventListener("touchstart", (e) => {
     dO = "Dare";
-    if (harshness >= 0.04) harshness = Math.round((harshness - 0.04) * 100) / 100;
-    else {
-        harshness += 0-harshness
-    }
+    harshness = Math.round((harshness - (Math.random() * 0.16 - 0.02)) * 100) / 100
+    harshness = Math.max(Math.min(1,harshness),0) ;
     hUb()})
 truthEl.addEventListener("touchstart", (e) => {
     dO = "Truth";
-    if (harshness <= 0.95) harshness = Math.round((harshness + 0.05) * 100) / 100;
-    else {
-        harshness += 1-harshness
-    }
+    harshness = Math.round((harshness + (Math.random() * 0.20 - 0.02)) * 100) / 100
+    harshness = Math.min(Math.max(0,harshness),1);
     hUb()})
 window.addEventListener('touchstart', (e) => handle(e))
 window.addEventListener('touchend', (e) => handle(e))
