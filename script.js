@@ -69,10 +69,10 @@ function logInHub(){
     qesT = selecQes("Truth")
     console.log("D:",qesD)
     console.log("T:",qesT)
-    // demoDEl.textContent = `${qesD.split("$")[0].replace(/^./, "_")}`
-    // demoTEl.textContent = `${qesT.split("$")[0].replace(/^./, "_")}`
-    demoDEl.textContent = `???`
-    demoTEl.textContent = `???`
+    demoDEl.textContent = `${qesD.split("$")[0].replace(/^./, "_")}`
+    demoTEl.textContent = `${qesT.split("$")[0].replace(/^./, "_")}`
+    // demoDEl.textContent = `???`
+    // demoTEl.textContent = `???`
     truthActive(1)
     dareActive(1)
 
@@ -184,7 +184,7 @@ function selecQes(option){
         console.log(`S:${S}, A:${A}, B:${B}, C:${C}, D:${D}, E:${E}, F:${F}`)
     }
 
-    if (Math.random() > (0.20*harshness)){
+    if (Math.random() > (0.15*harshness)){
         if (option == "Truth"){
             random = Math.floor(PhanPhoi(Math.random()) * QUESTION_TRUTH.length)
             testPhanPhoi()
@@ -301,13 +301,14 @@ function restart() {
 board.addEventListener("touchend", (e) => restart())
 dareEl.addEventListener("touchstart", (e) => {
     dO = "Dare";
-    harshness = Math.round((harshness - (Math.random() * 0.16 - 0.02)) * 100) / 100
+    harshness = Math.round((harshness - (Math.random() * 0.08 - 0.01)) * 100) / 100
     harshness = Math.max(Math.min(1,harshness),0) ;
     hUb()})
 truthEl.addEventListener("touchstart", (e) => {
     dO = "Truth";
-    harshness = Math.round((harshness + (Math.random() * 0.20 - 0.02)) * 100) / 100
+    harshness = Math.round((harshness + (Math.random() * 0.10 - 0.01)) * 100) / 100
     harshness = Math.min(Math.max(0,harshness),1);
+    console.log(QUESTION_TRUTH.length, QUESTION_DARE.length)
     hUb()})
 window.addEventListener('touchstart', (e) => handle(e))
 window.addEventListener('touchend', (e) => handle(e))
